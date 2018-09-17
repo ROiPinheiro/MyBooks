@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Criando cadastros fake
         livros = new Livro[]{
+            /*
             new Livro(1,
                     Utils.toByteArray(getResources(),R.drawable.pequeno_principe),
                     "O pequeno principe", getString(R.string.pequeno_principe)
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     Utils.toByteArray(getResources(),R.drawable.kotlin_android),
                     "Kotlin com android", getString(R.string.kotlin_android)
             )
+            */
         };
     }
 
