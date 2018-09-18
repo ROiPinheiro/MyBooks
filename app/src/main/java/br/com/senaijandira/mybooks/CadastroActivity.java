@@ -1,6 +1,7 @@
 package br.com.senaijandira.mybooks;
 
 import android.app.Activity;
+import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,8 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.InputStream;
-import java.util.Arrays;
 
+import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 
 public class CadastroActivity extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class CadastroActivity extends AppCompatActivity {
 
     //define uma constante/ imutavel
     private final int COD_REQ_GALRERIA = 101;
+    private MyBooksDatabase myBooksDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,14 @@ public class CadastroActivity extends AppCompatActivity {
         imgLivroCapa = findViewById(R.id.imgLivroCapa);
         txtTitulo = findViewById(R.id.txtTitulo);
         txtDescricacao = findViewById(R.id.txtDescricao);
+
+        myBooksDB = Room.databaseBuilder(
+                getApplicationContext(),
+                MyBooksDatabase.class,
+                Utils.DATABASE_NAME)
+                .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
+                .build();
     }
 
     @Override
@@ -76,7 +86,6 @@ public class CadastroActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent,"Selecione uma imagem"), COD_REQ_GALRERIA);
     }
 
-
     public void salvarLivro(View view) {
 
         if(livroCapa != null && !txtDescricacao.getText().toString().equals("") && !txtTitulo.getText().toString().equals("")) {
@@ -85,59 +94,75 @@ public class CadastroActivity extends AppCompatActivity {
             String descricao = txtDescricacao.getText().toString();
             byte[] capa = Utils.toByteArray(livroCapa);
 
-            Livro livro = new Livro(0, capa, titulo, descricao);
+            Livro livro = new Livro(capa, titulo, descricao);
 
             //Inserir na variável estática da MainActivity
-            //tamanho atual do array
+            /*
             int tamanhoArray = MainActivity.livros.length;
-
             MainActivity.livros = Arrays.copyOf(MainActivity.livros, tamanhoArray + 1);
-
             MainActivity.livros[tamanhoArray] = livro;
+            */
 
-            alert("Contato salvo", "Contato salvado");
+            myBooksDB.daoLivro().inserir(livro);
+
+            alert("Livro adicionado", "Livro adicionado com sucesso", 0);
 
         }else{
 
             String erroCapa = "", erroTitulo = "", erroDescricao = "";
 
             if(livroCapa == null){
-                erroCapa = "Falta a imagem da capa";
+                erroCapa = "Falta a imagem da capa\n";
             }
-
-            if(txtDescricacao.getText().toString().equals("")){
-                erroTitulo = "Falta um título";
-            }
-
             if(txtTitulo.getText().toString().equals("")){
+                erroTitulo = "Falta um título\n";
+            }
+            if(txtDescricacao.getText().toString().equals("")){
                 erroDescricao = "Falta uma descrição";
             }
 
-            alert("Erro", erroCapa + "\n" + erroTitulo + "\n" + erroDescricao);
+            alert("Erro", erroCapa + erroTitulo + erroDescricao, 1);
         }
     }
 
-    private void alert(String titulo, String msg){
+    private void alert(String titulo, String msg, int tipo){
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(titulo);
         alert.setMessage(msg);
 
-        alert.setPositiveButton("Adicionar outro", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        //tipo 0 = sucesso, 1 = erro
+        if(tipo == 0){
+            alert.setPositiveButton("Adicionar outro", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                finish();
-                startActivity(new Intent(getBaseContext(), CadastroActivity.class));
-            }
-        });
+                    //volta o icone para a ImageView
+                    imgLivroCapa.setImageResource(android.R.drawable.ic_menu_camera);
 
-        alert.setNegativeButton("Voltar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
+                    livroCapa = null;
+                    txtTitulo.getText().clear();
+                    txtDescricacao.getText().clear();
+                }
+            });
+
+            alert.setNegativeButton("Voltar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+
+        }else {
+
+            alert.setPositiveButton("Tentar novamente", null);
+            alert.setNegativeButton("Voltar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+        }
 
         alert.create().show();
 
