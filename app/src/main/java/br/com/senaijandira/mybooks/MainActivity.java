@@ -6,9 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
@@ -17,22 +23,21 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView listaLivros;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     //variavel de acesso ao bd
     private MyBooksDatabase myBooksBD;
 
-    public static Livro[] livros;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listaLivros =  (RecyclerView) findViewById(R.id.lstLivros);
+        listaLivros = findViewById(R.id.lstLivros);
         listaLivros.setHasFixedSize(true);
+        listaLivros.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        layoutManager = new LinearLayoutManager(this);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
 
         //instancia do banco de dados
         myBooksBD = Room.databaseBuilder(getApplicationContext(),MyBooksDatabase.class,Utils.DATABASE_NAME)
@@ -49,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        adapter = new LivrosAdapter(myBooksBD.daoLivro().selecionarTodos());
+        listaLivros.setAdapter(adapter);
+        Toast.makeText(this, "Ola", Toast.LENGTH_LONG).show();
 
     }
 

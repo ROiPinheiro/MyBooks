@@ -6,6 +6,9 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.senaijandira.mybooks.model.Livro;
 
 @Dao
@@ -21,6 +24,6 @@ public interface LivroDao {
     void deletar(Livro l);
 
     @Query("SELECT * FROM livro")
-    Livro[] selecionarTodos();
+    List<Livro> selecionarTodos();
 
 }

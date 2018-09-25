@@ -1,90 +1,50 @@
 package br.com.senaijandira.mybooks;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.senaijandira.mybooks.model.LinhaHolder;
 import br.com.senaijandira.mybooks.model.Livro;
 
-public class LivrosAdapter extends RecyclerView.Adapter<LivrosAdapter.ViewHolder> {
+public class LivrosAdapter extends RecyclerView.Adapter<LinhaHolder> {
 
-    /*
-    public LivrosAdapter(Context ctx){
-        super(ctx, 0, new ArrayList<Livro>());
-    }
-    */
+    private List<Livro> livros;
 
-    private Livro[] livros;
-
-    public LivrosAdapter(Livro[] livrosArr){
-        this.livros = livrosArr;
+    public LivrosAdapter(List<Livro> livros){
+        this.livros = livros;
     }
 
-    public class ViewHolder extends  RecyclerView.ViewHolder{
+    @Override //utiliza a classe LinhaHolder e infla o layout
+    public LinhaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        public ImageView imgLivroCapa;
-        public TextView txtLivroTitulo;
-        public TextView txtLivroDescricao;
 
-        public ViewHolder(View v){
-            super(v);
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.livro_layout,parent,false);
 
-            imgLivroCapa = v.findViewById(R.id.imgLivroCapa);
-            txtLivroTitulo = v.findViewById(R.id.txtLivroTitulo);
-            txtLivroDescricao = v.findViewById(R.id.txtLivroDescricao);
-
-        }
-    }
-
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-
-        Context context = parent.getContext();
-
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        View view = inflater.inflate(R.layout.livro_layout,parent,false);
-
-        ViewHolder viewHolder = new ViewHolder(view);
-
-        return viewHolder;
+        return new LinhaHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(LinhaHolder holder, int position) {
 
-        Livro livro = livros[position];
+        Livro livro = livros.get(position);
 
         //Setando os valores
-        holder.imgLivroCapa.setImageBitmap(Utils.toBitmap(livros[position].getCapa()));
-        holder.txtLivroTitulo.setText(livros[position].getTitulo());
-        holder.txtLivroDescricao.setText(livros[position].getDescricao());
+        holder.imgLivroCapa.setImageBitmap(Utils.toBitmap(livro.getCapa()));
+        holder.txtLivroTitulo.setText(livro.getTitulo());
+        holder.txtLivroDescricao.setText(livro.getDescricao());
     }
 
+    //total de itens da lista
     @Override
     public int getItemCount() {
-        return livros.length;
+
+        //se livros não for nulo, retorne quantos livros tem, se for, retorne 0
+        return livros != null ? livros.size() : 0;
     }
-
-    /*
-
-        ImageView imgDeleteLivro = view.findViewById(R.id.imgDeleteLivro);
-
-        imgDeleteLivro.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                //deletarLivro(livro);
-            }
-        });
-
-        return view;
-    }
-    */
-
 }
