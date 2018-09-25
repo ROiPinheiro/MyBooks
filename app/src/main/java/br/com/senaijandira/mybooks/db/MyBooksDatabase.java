@@ -5,8 +5,10 @@ import android.arch.persistence.room.RoomDatabase;
 
 import br.com.senaijandira.mybooks.dao.LivroDao;
 import br.com.senaijandira.mybooks.model.Livro;
+import br.com.senaijandira.mybooks.model.LivrosLidos;
+import br.com.senaijandira.mybooks.model.LivrosParaLer;
 
-@Database(entities = {Livro.class}, version = 1)
+@Database(entities = {Livro.class, LivrosParaLer.class, LivrosLidos.class}, version = 1)
 public abstract class MyBooksDatabase extends RoomDatabase {
 
     public abstract LivroDao daoLivro();

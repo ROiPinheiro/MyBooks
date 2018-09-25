@@ -9,20 +9,13 @@
     android:background="@color/cardview_shadow_start_color"
     >
 
-    <ScrollView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:scrollbars="vertical"
+        android:id="@+id/lstLivros">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/listaLivros"
-            android:orientation="vertical">
-
-        </LinearLayout>
-
-    </ScrollView>
+    </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

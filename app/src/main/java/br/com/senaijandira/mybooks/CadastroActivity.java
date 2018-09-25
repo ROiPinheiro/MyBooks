@@ -41,10 +41,7 @@ public class CadastroActivity extends AppCompatActivity {
         txtTitulo = findViewById(R.id.txtTitulo);
         txtDescricacao = findViewById(R.id.txtDescricao);
 
-        myBooksDB = Room.databaseBuilder(
-                getApplicationContext(),
-                MyBooksDatabase.class,
-                Utils.DATABASE_NAME)
+        myBooksDB = Room.databaseBuilder(getApplicationContext(),MyBooksDatabase.class,Utils.DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();
@@ -59,8 +56,7 @@ public class CadastroActivity extends AppCompatActivity {
             //o retorno vem como inputStream
 
             try{
-                //getContentResolver() - transforma em binario
-                //data.getData - conteudo selecionado
+                //getContentResolver() - transforma em binario  //data.getData - conteudo selecionado
                 InputStream input = getContentResolver().openInputStream(data.getData());
 
                 //converte para bitmap
@@ -95,13 +91,6 @@ public class CadastroActivity extends AppCompatActivity {
             byte[] capa = Utils.toByteArray(livroCapa);
 
             Livro livro = new Livro(capa, titulo, descricao);
-
-            //Inserir na variável estática da MainActivity
-            /*
-            int tamanhoArray = MainActivity.livros.length;
-            MainActivity.livros = Arrays.copyOf(MainActivity.livros, tamanhoArray + 1);
-            MainActivity.livros[tamanhoArray] = livro;
-            */
 
             myBooksDB.daoLivro().inserir(livro);
 
@@ -165,6 +154,5 @@ public class CadastroActivity extends AppCompatActivity {
         }
 
         alert.create().show();
-
     }
 }
