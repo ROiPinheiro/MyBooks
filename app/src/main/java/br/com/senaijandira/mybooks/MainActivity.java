@@ -1,91 +1,87 @@
 package br.com.senaijandira.mybooks;
 
-import android.arch.persistence.room.Room;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import br.com.senaijandira.mybooks.db.MyBooksDatabase;
-import br.com.senaijandira.mybooks.model.Livro;
+import br.com.senaijandira.mybooks.fragments.LivrosFragment;
+import br.com.senaijandira.mybooks.fragments.LivrosLidosFragment;
+import br.com.senaijandira.mybooks.fragments.LivrosParaLerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView listaLivros;
-    private RecyclerView.Adapter adapter;
-
-    //variavel de acesso ao bd
-    private MyBooksDatabase myBooksBD;
-
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listaLivros = findViewById(R.id.lstLivros);
-        listaLivros.setHasFixedSize(true);
-        listaLivros.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //instancia do banco de dados
-        myBooksBD = Room.databaseBuilder(getApplicationContext(),MyBooksDatabase.class,Utils.DATABASE_NAME)
-                .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
-                .build();
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-        adapter = new LivrosAdapter(myBooksBD.daoLivro().selecionarTodos());
-
-        listaLivros.setAdapter(adapter);
-        listaLivros.setLayoutManager(layoutManager);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter = new LivrosAdapter(myBooksBD.daoLivro().selecionarTodos());
-        listaLivros.setAdapter(adapter);
-        Toast.makeText(this, "Ola", Toast.LENGTH_LONG).show();
+        adapter.addFragment(new LivrosFragment(), "Livros");
+        adapter.addFragment(new LivrosParaLerFragment(), "Livros para Ler");
+        adapter.addFragment(new LivrosLidosFragment(), "Livros Lidos");
 
+        viewPager.setAdapter(adapter);
     }
 
-    public void deletarLivro(final Livro livro){
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        alert.setTitle("Deletar");
-        alert.setMessage("Tem certeza que deseja deletar?");
-
-        alert.setNegativeButton("Não", null);
-        alert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                //deletar livro do banco
-                myBooksBD.daoLivro().deletar(livro);
-
-                //deletar livro da tela
-                //adapter.remove(livro);
-            }
-        });
-
-        alert.show();
-    }
 
     public void abrirCadastro(View v){
         startActivity(new Intent(this, CadastroActivity.class));
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 }

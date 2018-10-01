@@ -12,4 +12,7 @@
     <string name="kotlin_android">O Kotlin é uma linguagem estaticamente tipada, desenvolvida pela
         JetBrains, cuja sintaxe é mais expressiva e concisa do que a do Java. Com recursos como
         expressões lambda, sobrecarga de operadores, templates de strings e muito mais.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

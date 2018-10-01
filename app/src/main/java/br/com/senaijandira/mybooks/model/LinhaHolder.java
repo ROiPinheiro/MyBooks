@@ -11,6 +11,7 @@ import br.com.senaijandira.mybooks.R;
 public class LinhaHolder extends RecyclerView.ViewHolder {
 
     public ImageView imgLivroCapa;
+    public ImageView imgDeletarLivro;
     public TextView txtLivroTitulo;
     public TextView txtLivroDescricao;
 
@@ -18,6 +19,7 @@ public class LinhaHolder extends RecyclerView.ViewHolder {
         super(v);
 
         imgLivroCapa = (ImageView) v.findViewById(R.id.imgLivroCapa);
+        imgDeletarLivro = (ImageView) v.findViewById(R.id.imgDeletarLivro);
         txtLivroTitulo = (TextView) v.findViewById(R.id.txtLivroTitulo);
         txtLivroDescricao = (TextView) v.findViewById(R.id.txtLivroDescricao);
     }
