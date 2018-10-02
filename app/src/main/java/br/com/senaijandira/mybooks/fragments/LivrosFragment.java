@@ -29,7 +29,6 @@ public class LivrosFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -39,15 +38,11 @@ public class LivrosFragment extends Fragment {
 
         listaLivros = view.findViewById(R.id.lstLivros);
         listaLivros.setHasFixedSize(true);
-        listaLivros.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
         //instancia do banco de dados
-        myBooksBD = Room.databaseBuilder(getContext(),MyBooksDatabase.class, Utils.DATABASE_NAME)
-                .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
-                .build();
+        myBooksBD = Room.databaseBuilder(getContext(),MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
         adapter = new LivrosAdapter(myBooksBD.daoLivro().selecionarTodos(), myBooksBD);
 

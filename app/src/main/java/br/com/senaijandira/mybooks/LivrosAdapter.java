@@ -26,12 +26,7 @@ public class LivrosAdapter extends RecyclerView.Adapter<LinhaHolder> {
     @Override //utiliza a classe LinhaHolder e infla o layout
     public LinhaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(
-                        R.layout.livro_layout,
-                        parent,
-                        false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.livro_layout, parent, false);
 
         return new LinhaHolder(v);
     }
@@ -54,14 +49,12 @@ public class LivrosAdapter extends RecyclerView.Adapter<LinhaHolder> {
         });
     }
 
-    //total de itens da lista
-    @Override
+    @Override //total de itens da lista
     public int getItemCount() {
 
         //se livros não for nulo, retorne quantos livros tem, se for, retorne 0
         return livros != null ? livros.size() : 0;
     }
-
 
     private void deletarLivro(Livro livro, int position){
 
