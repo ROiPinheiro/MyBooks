@@ -1,15 +1,17 @@
 package br.com.senaijandira.mybooks.fragments;
 
 import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import br.com.senaijandira.mybooks.CadastroActivity;
 import br.com.senaijandira.mybooks.LivrosAdapter;
 import br.com.senaijandira.mybooks.R;
 import br.com.senaijandira.mybooks.Utils;
@@ -22,9 +24,7 @@ public class LivrosFragment extends Fragment {
     private RecyclerView listaLivros;
     private RecyclerView.Adapter adapter;
 
-    public LivrosFragment() {
-        // Required empty public constructor
-    }
+    private FloatingActionButton btnFloat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,15 @@ public class LivrosFragment extends Fragment {
         listaLivros.setAdapter(adapter);
         listaLivros.setLayoutManager(layoutManager);
 
+        btnFloat = view.findViewById(R.id.abrirCadastro);
+
+        btnFloat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), CadastroActivity.class));
+            }
+        });
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -60,5 +69,4 @@ public class LivrosFragment extends Fragment {
         adapter = new LivrosAdapter(myBooksBD.daoLivro().selecionarTodos(), myBooksBD);
         listaLivros.setAdapter(adapter);
     }
-
 }

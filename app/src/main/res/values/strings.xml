@@ -1,18 +1,8 @@
 <resources>
     <string name="app_name">MyBooks</string>
-    <string name="pequeno_principe">O autor do livro é o personagem principal da história,
-        que assume também o papel de narrador, contando sobre o fatídico dia em que seu
-        avião teria caído no meio do deserto do Saara.</string>
 
-    <string name="cinquenta_tons">Anastasia Steele é uma jovem de 21 anos com uma vida bem
-        comum. Ela está prestes a se formar na faculdade e possui um emprego em uma loja para
-        conseguir pagar suas despesas. Anastasia é uma pessoa muito tímida, insegura em relação
-        à sua aparência. Ela se acha uma pessoa sem graça e não entende como alguém pode sentir atração por ela.</string>
+    <string name="livros">Livros</string>
+    <string name="paraler">Para Ler</string>
+    <string name="lidos">Lidos</string>
 
-    <string name="kotlin_android">O Kotlin é uma linguagem estaticamente tipada, desenvolvida pela
-        JetBrains, cuja sintaxe é mais expressiva e concisa do que a do Java. Com recursos como
-        expressões lambda, sobrecarga de operadores, templates de strings e muito mais.</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
