@@ -11,7 +11,6 @@ public class LivrosParaLer {
 
     private int idLivros;
 
-
     public int getIdLivrosParaLer() {
         return idLivrosParaLer;
     }

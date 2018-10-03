@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import br.com.senaijandira.mybooks.CadastroActivity;
-import br.com.senaijandira.mybooks.LivrosAdapter;
+import br.com.senaijandira.mybooks.adapters.LivrosAdapter;
 import br.com.senaijandira.mybooks.R;
 import br.com.senaijandira.mybooks.Utils;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
@@ -68,5 +68,12 @@ public class LivrosFragment extends Fragment {
 
         adapter = new LivrosAdapter(myBooksBD.daoLivro().selecionarTodos(), myBooksBD);
         listaLivros.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        myBooksBD.close();
     }
 }

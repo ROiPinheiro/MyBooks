@@ -1,107 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:layout_marginBottom="0dp">
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="4dp">
+        app:cardUseCompatPadding="true"
+        app:cardElevation="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgLivroCapa"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/pequeno_principe"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:paddingTop="5dp">
 
-                <ImageView
-                    android:id="@+id/imgLivroCapa"
-                    android:layout_width="100dp"
-                    android:layout_height="150dp"
-                    android:layout_marginRight="15dp"
-                    android:src="@drawable/pequeno_principe" />
-
-
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/txtLivroTitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="5dp">
+                    android:text="O pequeno principe"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/txtLivroTitulo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="O pequeno principe"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/txtLivroDescricao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Teste" />
-
-                </LinearLayout>
-
-
+                <TextView
+                    android:id="@+id/txtLivroDescricao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teste" />
 
             </LinearLayout>
 
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                android:layout_gravity="center_horizontal">
-
-                <ImageView
-                    android:layout_weight="0.25"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_quero_ler"
-                    android:id="@+id/imgQueroLer"
-                    />
-
-                <ImageView
-                    android:layout_weight="0.25"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_ja_li"
-                    android:id="@+id/imgJaLi"
-                    android:contentDescription="Abc" />
-
-                <ImageView
-                    android:layout_weight="0.25"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_editar"
-                    android:id="@+id/imgEditarLivro"
-                    />
-
-                <ImageView
-                    android:layout_weight="0.25"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_delete"
-                    android:id="@+id/imgDeletarLivro"
-                    />
-
-            </LinearLayout>
+                android:src="@drawable/ic_menu"
+                android:id="@+id/imgDeletarLivro"
+                android:layout_marginTop="5dp"
+                />
 
         </LinearLayout>
-
 
     </android.support.v7.widget.CardView>
 

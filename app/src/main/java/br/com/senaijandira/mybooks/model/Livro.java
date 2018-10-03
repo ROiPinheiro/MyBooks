@@ -2,6 +2,7 @@ package br.com.senaijandira.mybooks.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 // informando à Room que é uma tabela
@@ -19,6 +20,7 @@ public class Livro {
     private String titulo;
 
     //Room precisa de um construtor vazio
+    @Ignore
     public Livro(){
 
     }

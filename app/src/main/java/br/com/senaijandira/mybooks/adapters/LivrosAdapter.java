@@ -1,4 +1,4 @@
-package br.com.senaijandira.mybooks;
+package br.com.senaijandira.mybooks.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import br.com.senaijandira.mybooks.R;
+import br.com.senaijandira.mybooks.Utils;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
-import br.com.senaijandira.mybooks.model.LinhaHolder;
+import br.com.senaijandira.mybooks.ViewHolder;
 import br.com.senaijandira.mybooks.model.Livro;
 
-public class LivrosAdapter extends RecyclerView.Adapter<LinhaHolder> {
+public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private MyBooksDatabase myBooksDb;
 
@@ -23,16 +25,16 @@ public class LivrosAdapter extends RecyclerView.Adapter<LinhaHolder> {
         this.myBooksDb = myBooksDb;
     }
 
-    @Override //utiliza a classe LinhaHolder e infla o layout
-    public LinhaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.livro_layout, parent, false);
 
-        return new LinhaHolder(v);
+        return new ViewHolder(v);
     }
 
     @Override //seta os valores de cada item
-    public void onBindViewHolder(LinhaHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
         final Livro livro = livros.get(position);
 

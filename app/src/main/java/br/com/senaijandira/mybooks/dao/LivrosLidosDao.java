@@ -22,7 +22,7 @@ public interface LivrosLidosDao {
     @Delete
     void deletar(Livro l);
 
-    @Query("SELECT * FROM livro")
+    @Query("SELECT * FROM LivrosLidos")
     List<Livro> selecionarTodos();
 
 }
