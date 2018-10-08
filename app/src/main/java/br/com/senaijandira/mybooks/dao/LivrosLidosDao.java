@@ -8,21 +8,24 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
-import br.com.senaijandira.mybooks.model.Livro;
+import br.com.senaijandira.mybooks.model.LivroELidos;
+import br.com.senaijandira.mybooks.model.LivrosLidos;
 
 @Dao
 public interface LivrosLidosDao {
 
     @Insert
-    void inserir(Livro l);
+    void inserir(LivrosLidos l);
 
     @Update
-    void atualizar(Livro l);
+    void atualizar(LivrosLidos l);
 
     @Delete
-    void deletar(Livro l);
+    void deletar(LivrosLidos l);
 
     @Query("SELECT * FROM LivrosLidos")
-    List<Livro> selecionarTodos();
+    List<LivrosLidos> selecionarTodos();
 
+    @Query("SELECT * FROM LivrosLidos INNER JOIN Livro ON LivrosLidos.idLivros = Livro.id")
+    List<LivroELidos> selecionarLivro();
 }

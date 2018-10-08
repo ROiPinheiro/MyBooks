@@ -1,22 +1,32 @@
 package br.com.senaijandira.mybooks.model;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class LivrosLidos {
 
     @PrimaryKey(autoGenerate = true)
-    private int idLivrosLidos;
+    private int idPk;
 
     private int idLivros;
 
-    public int getIdLivrosLidos() {
-        return idLivrosLidos;
+    @Ignore
+    public LivrosLidos(){
+
     }
 
-    public void setIdLivrosLidos(int idLivrosLidos) {
-        this.idLivrosLidos = idLivrosLidos;
+    public LivrosLidos(int idLivros){
+        this.idLivros = idLivros;
+    }
+
+    public int getIdPk() {
+        return idPk;
+    }
+
+    public void setIdPk(int idLivrosLidos) {
+        this.idPk = idLivrosLidos;
     }
 
     public int getIdLivros() {

@@ -10,10 +10,10 @@ import br.com.senaijandira.mybooks.model.Livro;
 import br.com.senaijandira.mybooks.model.LivrosLidos;
 import br.com.senaijandira.mybooks.model.LivrosParaLer;
 
-@Database(entities = {Livro.class, LivrosParaLer.class, LivrosLidos.class}, version = 4, exportSchema = false)
+@Database(entities = {Livro.class, LivrosParaLer.class, LivrosLidos.class}, version = 6, exportSchema = false)
 public abstract class MyBooksDatabase extends RoomDatabase {
 
     public abstract LivroDao daoLivro();
-    //public abstract LivrosLidosDao daoLivrosLidos();
-    //public abstract LivrosParaLerDao daoLivrosParaLer();
+    public abstract LivrosLidosDao daoLivrosLidos();
+    public abstract LivrosParaLerDao daoLivrosParaLer();
 }

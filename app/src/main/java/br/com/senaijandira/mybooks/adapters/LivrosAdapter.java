@@ -12,12 +12,16 @@ import br.com.senaijandira.mybooks.Utils;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.ViewHolder;
 import br.com.senaijandira.mybooks.model.Livro;
+import br.com.senaijandira.mybooks.model.LivrosLidos;
+import br.com.senaijandira.mybooks.model.LivrosParaLer;
 
 public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private MyBooksDatabase myBooksDb;
 
     private List<Livro> livros;
+    private LivrosLidos lidos;
+    private LivrosParaLer ler;
 
     public LivrosAdapter(List<Livro> livros, MyBooksDatabase myBooksDb){
 
@@ -29,7 +33,6 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.livro_layout, parent, false);
-
         return new ViewHolder(v);
     }
 
@@ -49,6 +52,20 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
                 deletarLivro(livro, position);
             }
         });
+
+        holder.imgLidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paraLidos(new LivrosLidos(livro.getId()));
+            }
+        });
+
+        holder.imgLer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paraLer(new LivrosParaLer(livro.getId()));
+            }
+        });
     }
 
     @Override //total de itens da lista
@@ -65,5 +82,13 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
         //remove livro da lista
         livros.remove(livro);
         notifyItemRemoved(position);
+    }
+
+    private void paraLidos(LivrosLidos lidos){
+        myBooksDb.daoLivrosLidos().inserir(lidos);
+    }
+
+    private void paraLer(LivrosParaLer ler){
+        myBooksDb.daoLivrosParaLer().inserir(ler);
     }
 }
