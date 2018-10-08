@@ -23,8 +23,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 0: return new LivrosFragment();
             case 1: return new LivrosParaLerFragment();
             case 2: return new LivrosLidosFragment();
+            default: return null;
         }
-        return null;
     }
 
     @Override
