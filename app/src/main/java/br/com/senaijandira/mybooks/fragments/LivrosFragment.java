@@ -44,7 +44,7 @@ public class LivrosFragment extends Fragment {
         //instancia do banco de dados
         myBooksBD = Room.databaseBuilder(getContext(),MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
-        adapter = new LivrosAdapter(myBooksBD.daoLivro().selecionarTodos(), myBooksBD);
+        adapter = new LivrosAdapter(getContext(), myBooksBD.daoLivro().selecionarTodos(), myBooksBD);
 
         listaLivros.setAdapter(adapter);
         listaLivros.setLayoutManager(layoutManager);
@@ -66,7 +66,7 @@ public class LivrosFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        adapter = new LivrosAdapter(myBooksBD.daoLivro().selecionarTodos(), myBooksBD);
+        adapter = new LivrosAdapter(getContext(), myBooksBD.daoLivro().selecionarTodos(), myBooksBD);
         listaLivros.setAdapter(adapter);
     }
 

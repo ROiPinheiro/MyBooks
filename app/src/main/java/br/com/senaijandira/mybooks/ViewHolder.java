@@ -9,7 +9,7 @@ import android.widget.TextView;
 public class ViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView imgLivroCapa;
-    public ImageView imgDeletarLivro;
+    public ImageView imgMenu;
     public TextView txtLivroTitulo;
     public TextView txtLivroDescricao;
 
@@ -17,7 +17,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         super(v);
 
         imgLivroCapa = (ImageView) v.findViewById(R.id.imgLivroCapa);
-        imgDeletarLivro = (ImageView) v.findViewById(R.id.imgDeletarLivro);
+        imgMenu = (ImageView) v.findViewById(R.id.imgMenu);
         txtLivroTitulo = (TextView) v.findViewById(R.id.txtLivroTitulo);
         txtLivroDescricao = (TextView) v.findViewById(R.id.txtLivroDescricao);
     }

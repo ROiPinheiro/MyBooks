@@ -49,21 +49,14 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu"
-                    android:id="@+id/imgDeletarLivro"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="15dp"
-                    />
-
-            </LinearLayout>
+                android:src="@drawable/ic_menu"
+                android:id="@+id/imgMenu"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                />
 
         </LinearLayout>
 
