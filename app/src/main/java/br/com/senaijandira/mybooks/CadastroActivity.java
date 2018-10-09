@@ -17,6 +17,7 @@ import java.io.InputStream;
 
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
+import br.com.senaijandira.mybooks.utils.Utils;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -41,7 +42,7 @@ public class CadastroActivity extends AppCompatActivity {
         txtTitulo = findViewById(R.id.txtTitulo);
         txtDescricacao = findViewById(R.id.txtDescricao);
 
-        myBooksDB = Room.databaseBuilder(getApplicationContext(),MyBooksDatabase.class,Utils.DATABASE_NAME)
+        myBooksDB = Room.databaseBuilder(getApplicationContext(),MyBooksDatabase.class, Utils.DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();

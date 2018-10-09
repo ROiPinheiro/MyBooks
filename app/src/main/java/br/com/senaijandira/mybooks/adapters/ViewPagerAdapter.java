@@ -3,19 +3,20 @@ package br.com.senaijandira.mybooks.adapters;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import br.com.senaijandira.mybooks.fragments.LivrosFragment;
 import br.com.senaijandira.mybooks.fragments.LivrosLidosFragment;
 import br.com.senaijandira.mybooks.fragments.LivrosParaLerFragment;
 
 //Classe para controler da animação de swipe entre as fragments
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     public ViewPagerAdapter (FragmentManager fragmentManager){
         super(fragmentManager);
     }
 
+    //retorna a fragment dependendo do item do menu selecionado
     @Override
     public Fragment getItem(int position) {
 
@@ -32,6 +33,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         return 3;
     }
 
+    //seta os titulos dos menus
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
@@ -43,4 +45,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             default: return null;
         }
     }
+
+    //TODO https://looksok.wordpress.com/2013/11/02/viewpager-with-detailed-fragment-lifecycle-onresumefragment-including-source-code/
 }

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import br.com.senaijandira.mybooks.R;
-import br.com.senaijandira.mybooks.Utils;
+import br.com.senaijandira.mybooks.utils.Utils;
 import br.com.senaijandira.mybooks.ViewHolder;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.LivroELidos;

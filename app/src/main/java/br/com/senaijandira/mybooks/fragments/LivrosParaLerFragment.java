@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import br.com.senaijandira.mybooks.R;
-import br.com.senaijandira.mybooks.Utils;
+import br.com.senaijandira.mybooks.utils.Utils;
 import br.com.senaijandira.mybooks.adapters.LivrosParaLerAdapter;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 
@@ -48,8 +48,8 @@ public class LivrosParaLerFragment extends Fragment{
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStop() {
+        super.onStop();
 
         adapter = new LivrosParaLerAdapter(myBooksBD.daoLivrosParaLer().selecionarLivro(), myBooksBD);
         listaLivros.setAdapter(adapter);

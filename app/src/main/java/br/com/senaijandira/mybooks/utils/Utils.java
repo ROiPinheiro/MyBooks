@@ -1,4 +1,4 @@
-package br.com.senaijandira.mybooks;
+package br.com.senaijandira.mybooks.utils;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

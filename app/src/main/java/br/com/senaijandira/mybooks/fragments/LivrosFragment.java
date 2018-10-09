@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import br.com.senaijandira.mybooks.CadastroActivity;
 import br.com.senaijandira.mybooks.adapters.LivrosAdapter;
 import br.com.senaijandira.mybooks.R;
-import br.com.senaijandira.mybooks.Utils;
+import br.com.senaijandira.mybooks.utils.Utils;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 
 public class LivrosFragment extends Fragment {

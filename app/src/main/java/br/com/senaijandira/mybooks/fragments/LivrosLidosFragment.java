@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import br.com.senaijandira.mybooks.R;
-import br.com.senaijandira.mybooks.Utils;
+import br.com.senaijandira.mybooks.utils.Utils;
 import br.com.senaijandira.mybooks.adapters.LivrosLidosAdapter;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 
@@ -39,7 +39,7 @@ public class LivrosLidosFragment extends Fragment {
         //instancia do banco de dados
         myBooksBD = Room.databaseBuilder(getContext(),MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
-        adapter = new LivrosLidosAdapter(myBooksBD.daoLivrosLidos().selecionarLivro(), myBooksBD);
+        adapter = new LivrosLidosAdapter(getContext(), myBooksBD.daoLivrosLidos().selecionarLivro(), myBooksBD);
 
         listaLivros.setAdapter(adapter);
         listaLivros.setLayoutManager(layoutManager);
@@ -51,7 +51,8 @@ public class LivrosLidosFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        adapter = new LivrosLidosAdapter(myBooksBD.daoLivrosLidos().selecionarLivro(), myBooksBD);
+        adapter = new LivrosLidosAdapter(getContext(), myBooksBD.daoLivrosLidos().selecionarLivro(), myBooksBD);
+
         listaLivros.setAdapter(adapter);
     }
 

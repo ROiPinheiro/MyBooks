@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import br.com.senaijandira.mybooks.R;
-import br.com.senaijandira.mybooks.Utils;
+import br.com.senaijandira.mybooks.utils.Utils;
 import br.com.senaijandira.mybooks.ViewHolder;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
@@ -68,7 +68,7 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     //Médoto do popup menu de cada item da lista;
-    private void popupMenu(View v,final Livro livro,final int position){
+    private void popupMenu(View v, final Livro livro, final int position){
 
         final PopupMenu popup = new PopupMenu(v.getContext(), v);
 
