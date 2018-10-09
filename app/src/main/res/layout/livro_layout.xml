@@ -59,25 +59,9 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_menu"
                     android:id="@+id/imgDeletarLivro"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="15dp"
                     />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu"
-                    android:id="@+id/imgLidos"
-                    android:layout_marginTop="5dp"
-                    />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu"
-                    android:id="@+id/imgLer"
-                    android:layout_marginTop="5dp"
-                    />
-
 
             </LinearLayout>
 

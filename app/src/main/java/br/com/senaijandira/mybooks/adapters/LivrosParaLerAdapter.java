@@ -40,6 +40,7 @@ public class LivrosParaLerAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.imgLivroCapa.setImageBitmap(Utils.toBitmap(livro.getCapa()));
         holder.txtLivroTitulo.setText(livro.getTitulo());
         holder.txtLivroDescricao.setText(livro.getDescricao());
+
     }
 
     @Override //total de itens da lista

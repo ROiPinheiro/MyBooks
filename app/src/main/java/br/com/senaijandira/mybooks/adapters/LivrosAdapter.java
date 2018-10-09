@@ -1,5 +1,6 @@
 package br.com.senaijandira.mybooks.adapters;
 
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,7 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     @Override //seta os valores de cada item
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         final Livro livro = livros.get(position);
 
@@ -47,6 +48,18 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.txtLivroDescricao.setText(livro.getDescricao());
 
         holder.imgDeletarLivro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(v.getContext(), v);
+
+                popup.getMenuInflater().inflate(R.menu.menu_list_item, popup.getMenu());
+
+                popup.show();
+
+            }
+        });
+
+        /*holder.imgDeletarLivro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 deletarLivro(livro, position);
@@ -65,7 +78,7 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
             public void onClick(View v) {
                 paraLer(new LivrosParaLer(livro.getId()));
             }
-        });
+        });*/
     }
 
     @Override //total de itens da lista
