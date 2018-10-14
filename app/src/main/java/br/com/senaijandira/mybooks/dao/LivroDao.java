@@ -24,4 +24,7 @@ public interface LivroDao {
 
     @Query("SELECT * FROM Livro")
     List<Livro> selecionarTodos();
+
+    @Query("SELECT * FROM Livro WHERE id = :id")
+    Livro selecioarUmLivro(int id);
 }

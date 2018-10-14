@@ -26,14 +26,32 @@
             app:tabSelectedTextColor="#ffffff"
             app:tabIndicatorColor="#ffffff"
             app:tabGravity="fill"
-            app:tabMode="fixed"/>
+            app:tabMode="fixed">
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Livros"/>
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Para Ler"/>
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lidos"/>
+
+        </android.support.design.widget.TabLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/pager"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/container"
         android:background="@color/backgrounColor"/>
 
 </LinearLayout>

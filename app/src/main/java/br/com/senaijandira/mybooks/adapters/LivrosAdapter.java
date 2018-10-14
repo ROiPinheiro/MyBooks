@@ -3,6 +3,8 @@ package br.com.senaijandira.mybooks.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +14,8 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import br.com.senaijandira.mybooks.CadastroActivity;
+import br.com.senaijandira.mybooks.EditarActivity;
 import br.com.senaijandira.mybooks.R;
 import br.com.senaijandira.mybooks.utils.Utils;
 import br.com.senaijandira.mybooks.ViewHolder;
@@ -68,7 +72,7 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     //Médoto do popup menu de cada item da lista;
-    private void popupMenu(View v, final Livro livro, final int position){
+    private void popupMenu(final View v, final Livro livro, final int position){
 
         final PopupMenu popup = new PopupMenu(v.getContext(), v);
 
@@ -82,6 +86,8 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
                         deletarLivro(livro, position);
                         break;
                     case R.id.menu_item_edit:
+                        editarLivro(livro, v, position);
+
                         break;
                     case R.id.menu_item_ler:
                         paraLer(new LivrosParaLer(livro.getId()));
@@ -94,6 +100,19 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
             }
         });
         popup.show();
+    }
+
+    private void editarLivro(Livro livro, View v, int position){
+
+        Bundle bundle = new Bundle();
+
+        bundle.putInt("ID", livros.get(position).getId());
+
+        Intent i = new Intent(v.getContext(), EditarActivity.class);
+
+        i.putExtras(bundle);
+
+        ctx.startActivity(i);
     }
 
     //método para deletar um livro da lista principal

@@ -55,12 +55,14 @@ public class LivrosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), CadastroActivity.class));
+
             }
         });
 
         // Inflate the layout for this fragment
         return view;
     }
+
 
     @Override
     public void onResume() {

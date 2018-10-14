@@ -21,9 +21,7 @@ public class Livro {
 
     //Room precisa de um construtor vazio
     @Ignore
-    public Livro(){
-
-    }
+    public Livro(){}
 
     public Livro(byte[] capa, String titulo, String descricao){
         this.capa = capa;

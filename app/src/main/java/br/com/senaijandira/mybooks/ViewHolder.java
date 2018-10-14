@@ -16,9 +16,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public ViewHolder(View v){
         super(v);
 
-        imgLivroCapa = (ImageView) v.findViewById(R.id.imgLivroCapa);
-        imgMenu = (ImageView) v.findViewById(R.id.imgMenu);
-        txtLivroTitulo = (TextView) v.findViewById(R.id.txtLivroTitulo);
-        txtLivroDescricao = (TextView) v.findViewById(R.id.txtLivroDescricao);
+        imgLivroCapa = v.findViewById(R.id.imgLivroCapa);
+        imgMenu = v.findViewById(R.id.imgMenu);
+        txtLivroTitulo = v.findViewById(R.id.txtLivroTitulo);
+        txtLivroDescricao = v.findViewById(R.id.txtLivroDescricao);
     }
 }

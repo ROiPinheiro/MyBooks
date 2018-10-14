@@ -14,7 +14,7 @@ import br.com.senaijandira.mybooks.utils.Utils;
 import br.com.senaijandira.mybooks.adapters.LivrosParaLerAdapter;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 
-public class LivrosParaLerFragment extends Fragment{
+public class LivrosParaLerFragment extends Fragment {
 
     //variavel de acesso ao bd
     private MyBooksDatabase myBooksBD;

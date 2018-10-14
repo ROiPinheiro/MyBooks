@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.InputStream;
 
@@ -19,7 +20,10 @@ import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 import br.com.senaijandira.mybooks.utils.Utils;
 
-public class CadastroActivity extends AppCompatActivity {
+public class EditarActivity extends AppCompatActivity {
+
+    Bundle bundle;
+    Livro livro;
 
     //objeto img
     Bitmap livroCapa;
@@ -36,13 +40,25 @@ public class CadastroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_cadastro);
+        setContentView(R.layout.activity_editar);
 
-        imgLivroCapa = findViewById(R.id.imgLivroCapa);
-        txtTitulo = findViewById(R.id.txtTitulo);
-        txtDescricacao = findViewById(R.id.txtDescricao);
+        bundle = new Bundle();
+        bundle = getIntent().getExtras();
 
         myBooksDB = Room.databaseBuilder(getApplicationContext(),MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
+
+        //pega os dados do livro que foi selecionado na tela principal
+        livro = myBooksDB.daoLivro().selecioarUmLivro(bundle.getInt("ID"));
+
+        livroCapa = Utils.toBitmap(livro.getCapa());
+        imgLivroCapa = findViewById(R.id.imgLivroCapa);
+        imgLivroCapa.setImageBitmap(Utils.toBitmap(livro.getCapa()));
+
+        txtTitulo = findViewById(R.id.txtTitulo);
+        txtTitulo.setText(livro.getTitulo());
+
+        txtDescricacao = findViewById(R.id.txtDescricao);
+        txtDescricacao.setText(livro.getDescricao());
     }
 
     @Override
@@ -80,17 +96,17 @@ public class CadastroActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent,"Selecione uma imagem"), COD_REQ_GALRERIA);
     }
 
-    public void salvarLivro(View view) {
+    public void editarLivro(View view) {
 
+        //validação, caso senhum valor for nulo...
         if(livroCapa != null && !txtDescricacao.getText().toString().equals("") && !txtTitulo.getText().toString().equals("")) {
 
-            String titulo = txtTitulo.getText().toString();
-            String descricao = txtDescricacao.getText().toString();
-            byte[] capa = Utils.toByteArray(livroCapa);
+            //seta no livro os novos valores
+            livro.setTitulo(txtTitulo.getText().toString());
+            livro.setDescricao(txtDescricacao.getText().toString());
+            livro.setCapa(Utils.toByteArray(livroCapa));
 
-            Livro livro = new Livro(capa, titulo, descricao);
-
-            myBooksDB.daoLivro().inserir(livro);
+            myBooksDB.daoLivro().atualizar(livro);
 
             alert("Livro adicionado", "Livro adicionado com sucesso", 0);
 
@@ -120,18 +136,6 @@ public class CadastroActivity extends AppCompatActivity {
 
         //tipo 0 = sucesso, 1 = erro
         if(tipo == 0){
-            alert.setPositiveButton("Adicionar outro", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    //volta o icone para a ImageView
-                    imgLivroCapa.setImageResource(android.R.drawable.ic_menu_camera);
-
-                    livroCapa = null;
-                    txtTitulo.getText().clear();
-                    txtDescricacao.getText().clear();
-                }
-            });
 
             alert.setNegativeButton("Voltar", new DialogInterface.OnClickListener() {
                 @Override
