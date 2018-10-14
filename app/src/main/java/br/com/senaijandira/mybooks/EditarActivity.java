@@ -108,7 +108,7 @@ public class EditarActivity extends AppCompatActivity {
 
             myBooksDB.daoLivro().atualizar(livro);
 
-            alert("Livro adicionado", "Livro adicionado com sucesso", 0);
+            alert("Sucesso", "Livro editado com sucesso", 0);
 
         }else{
 
@@ -134,6 +134,7 @@ public class EditarActivity extends AppCompatActivity {
         alert.setTitle(titulo);
         alert.setMessage(msg);
 
+        alert.setCancelable(false);
         //tipo 0 = sucesso, 1 = erro
         if(tipo == 0){
 

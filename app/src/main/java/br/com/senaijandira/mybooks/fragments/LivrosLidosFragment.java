@@ -39,7 +39,7 @@ public class LivrosLidosFragment extends Fragment {
         //instancia do banco de dados
         myBooksBD = Room.databaseBuilder(getContext(),MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
-        adapter = new LivrosLidosAdapter(getContext(), myBooksBD.daoLivrosLidos().selecionarLivro(), myBooksBD);
+        adapter = new LivrosLidosAdapter(getContext(), myBooksBD.daoLivrosLidos().selecionarTodos(), myBooksBD);
 
         listaLivros.setAdapter(adapter);
         listaLivros.setLayoutManager(layoutManager);
@@ -47,13 +47,11 @@ public class LivrosLidosFragment extends Fragment {
         return view;
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
 
-        adapter = new LivrosLidosAdapter(getContext(), myBooksBD.daoLivrosLidos().selecionarLivro(), myBooksBD);
-
+        adapter = new LivrosLidosAdapter(getContext(), myBooksBD.daoLivrosLidos().selecionarTodos(), myBooksBD);
         listaLivros.setAdapter(adapter);
     }
 

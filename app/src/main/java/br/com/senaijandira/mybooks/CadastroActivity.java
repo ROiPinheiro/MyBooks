@@ -92,7 +92,7 @@ public class CadastroActivity extends AppCompatActivity {
 
             myBooksDB.daoLivro().inserir(livro);
 
-            alert("Livro adicionado", "Livro adicionado com sucesso", 0);
+            alert("Sucesso", "Livro adicionado com sucesso", 0);
 
         }else{
 
@@ -117,6 +117,8 @@ public class CadastroActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(titulo);
         alert.setMessage(msg);
+
+        alert.setCancelable(false);
 
         //tipo 0 = sucesso, 1 = erro
         if(tipo == 0){

@@ -37,9 +37,9 @@ public class LivrosParaLerFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
         //instancia do banco de dados
-        myBooksBD = Room.databaseBuilder(getContext(),MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
+        myBooksBD = Room.databaseBuilder(getContext(), MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
-        adapter = new LivrosParaLerAdapter(myBooksBD.daoLivrosParaLer().selecionarLivro(), myBooksBD);
+        adapter = new LivrosParaLerAdapter(getContext(), myBooksBD.daoLivrosParaLer().selecionarTodos(), myBooksBD);
 
         listaLivros.setAdapter(adapter);
         listaLivros.setLayoutManager(layoutManager);
@@ -48,10 +48,10 @@ public class LivrosParaLerFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onResume() {
+        super.onResume();
 
-        adapter = new LivrosParaLerAdapter(myBooksBD.daoLivrosParaLer().selecionarLivro(), myBooksBD);
+        adapter = new LivrosParaLerAdapter(getContext(), myBooksBD.daoLivrosParaLer().selecionarTodos(), myBooksBD);
         listaLivros.setAdapter(adapter);
     }
 

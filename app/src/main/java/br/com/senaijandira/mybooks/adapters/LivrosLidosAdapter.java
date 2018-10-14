@@ -3,6 +3,8 @@ package br.com.senaijandira.mybooks.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,9 +14,11 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import br.com.senaijandira.mybooks.EditarActivity;
 import br.com.senaijandira.mybooks.R;
 import br.com.senaijandira.mybooks.ViewHolder;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
+import br.com.senaijandira.mybooks.model.Livro;
 import br.com.senaijandira.mybooks.model.LivroELidos;
 import br.com.senaijandira.mybooks.model.LivrosLidos;
 import br.com.senaijandira.mybooks.utils.Utils;
@@ -72,7 +76,7 @@ public class LivrosLidosAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     //Médoto do popup menu de cada item da lista;
-    private void popupMenu(View v, final LivrosLidos livro, final int position){
+    private void popupMenu(final View v, final LivrosLidos livro, final int position){
 
         final PopupMenu popup = new PopupMenu(v.getContext(), v);
 
@@ -84,6 +88,7 @@ public class LivrosLidosAdapter extends RecyclerView.Adapter<ViewHolder> {
                 switch (item.getItemId()){
 
                     case R.id.menu_ler_lidos_item_edit:
+                        editarLivro(v, position);
                         break;
 
                     case R.id.menu_ler_lidos_item_delete:
@@ -94,6 +99,17 @@ public class LivrosLidosAdapter extends RecyclerView.Adapter<ViewHolder> {
             }
         });
         popup.show();
+    }
+
+    private void editarLivro(View v, int position){
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("ID", livros.get(position).getId());
+
+        Intent i = new Intent(v.getContext(), EditarActivity.class);
+        i.putExtras(bundle);
+
+        ctx.startActivity(i);
     }
 
     private void deletarLivro(final LivrosLidos livro, final int position){
@@ -110,11 +126,10 @@ public class LivrosLidosAdapter extends RecyclerView.Adapter<ViewHolder> {
                 myBooksDb.daoLivrosLidos().deletar(livro);
 
                 //remove livro da lista
-                livros.remove(livro);
+                livros.remove(position);
                 notifyItemRemoved(position);
             }
         });
         alert.create().show();
     }
-
 }

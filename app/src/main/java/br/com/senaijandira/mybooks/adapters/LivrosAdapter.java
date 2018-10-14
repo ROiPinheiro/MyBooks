@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -86,8 +87,7 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
                         deletarLivro(livro, position);
                         break;
                     case R.id.menu_item_edit:
-                        editarLivro(livro, v, position);
-
+                        editarLivro(v, position);
                         break;
                     case R.id.menu_item_ler:
                         paraLer(new LivrosParaLer(livro.getId()));
@@ -102,14 +102,12 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
         popup.show();
     }
 
-    private void editarLivro(Livro livro, View v, int position){
+    private void editarLivro(View v, int position){
 
         Bundle bundle = new Bundle();
-
         bundle.putInt("ID", livros.get(position).getId());
 
         Intent i = new Intent(v.getContext(), EditarActivity.class);
-
         i.putExtras(bundle);
 
         ctx.startActivity(i);
@@ -127,14 +125,27 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                myBooksDb.daoLivro().deletar(livro);
+                //se o livro não estiver em nenhuma lista, pode ser apagado
+                if(!verificarLivro(livro)){
 
-                //remove livro da lista
-                livros.remove(livro);
-                notifyItemRemoved(position);
+                    myBooksDb.daoLivro().deletar(livro);
+
+                    //remove livro da lista
+                    livros.remove(livro);
+                    notifyItemRemoved(position);
+                }
+                else{
+                    Toast.makeText(ctx,"Este livro está em 'PARA LER' ou 'LIDOS', não pode ser apagado",Toast.LENGTH_LONG).show();
+                }
             }
         });
         alert.create().show();
+    }
+
+    private boolean verificarLivro(Livro livro){
+
+        //se alguma das consultas retornar true quer dizer que esse livro está em outra lista
+        return (myBooksDb.daoLivrosParaLer().selecioarUmLivro(livro.getId()) || myBooksDb.daoLivrosLidos().selecioarUmLivro(livro.getId()));
     }
 
     //Médoto para adicionar um livro na lista de livros lidos
