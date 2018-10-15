@@ -26,4 +26,7 @@ public interface LivrosLidosDao {
 
     @Query("SELECT * FROM LivrosLidos WHERE idLivros = :id")
     boolean selecioarUmLivro(int id);
+
+    @Query("SELECT * FROM LivrosLidos WHERE idLivros = :id")
+    LivrosLidos selecionarPorId(int id);
 }

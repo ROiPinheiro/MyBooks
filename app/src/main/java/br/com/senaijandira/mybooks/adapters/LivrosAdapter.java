@@ -148,28 +148,87 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     //Médoto para adicionar um livro na lista de livros lidos
-    private void paraLidos(Livro livro, LivrosLidos lidos){
+    private void paraLidos(final Livro livro, final LivrosLidos lidos){
 
-        //se o livro não estiver em nenhuma lista, pode ser apagado
+        //se o livro não estiver em livros lidos, pode ser adicionado
         if(!myBooksDb.daoLivrosLidos().selecioarUmLivro(livro.getId())){
 
-            myBooksDb.daoLivrosLidos().inserir(lidos);
+            if(!myBooksDb.daoLivrosParaLer().selecioarUmLivro(livro.getId())){
+                myBooksDb.daoLivrosLidos().inserir(lidos);
+
+                Toast.makeText(ctx,"Livro adicionado em 'Lidos' com sucesso",Toast.LENGTH_SHORT).show();
+            }
+            else{
+                String msg = "Este livro já está em 'Para ler', caso realmente queira adicionar em 'Lidos' ele será retirado de 'Para Ler'";
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
+                alert.setTitle("Aviso!");
+                alert.setMessage(msg);
+
+                alert.setNegativeButton("Voltar", null);
+                alert.setPositiveButton("Confirmar mudança", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        //após a confirmação o livro é inserido na tabela lidos
+                        myBooksDb.daoLivrosLidos().inserir(lidos);
+
+                        //recebe o mesmo livro da tabela para ler
+                        LivrosParaLer ler = myBooksDb.daoLivrosParaLer().selecionarPorId(livro.getId());
+
+                        //e retira da tabela para ler
+                        myBooksDb.daoLivrosParaLer().deletar(ler);
+                    }
+                });
+
+                alert.create().show();
+            }
         }
         else{
-            Toast.makeText(ctx,"Este livro já está em 'LIDOS', não pode ser adicionado novamente",Toast.LENGTH_LONG).show();
+            Toast.makeText(ctx,"Este livro já está em 'Lidos', não pode ser adicionado novamente",Toast.LENGTH_LONG).show();
         }
     }
 
     //Médoto para adicionar um livro na lista de livros para ler
-    private void paraLer(Livro livro, LivrosParaLer ler){
+    private void paraLer(final Livro livro, final LivrosParaLer ler){
 
-        //se o livro não estiver em nenhuma lista, pode ser apagado
+        //se o livro não estiver em livros para ler, pode ser adicionado
         if(!myBooksDb.daoLivrosParaLer().selecioarUmLivro(livro.getId())){
 
-            myBooksDb.daoLivrosParaLer().inserir(ler);
+            if(!myBooksDb.daoLivrosLidos().selecioarUmLivro(livro.getId())){
+                myBooksDb.daoLivrosParaLer().inserir(ler);
+
+                Toast.makeText(ctx,"Livro adicionado em 'Para Ler' com sucesso",Toast.LENGTH_SHORT).show();
+            }
+            else{
+
+                String msg = "Este livro já está em 'Lidos', caso realmente queira adicionar em 'Para Ler' ele será retirado de 'Lidos'";
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
+                alert.setTitle("Aviso!");
+                alert.setMessage(msg);
+
+                alert.setNegativeButton("Voltar", null);
+                alert.setPositiveButton("Confirmar mudança", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        //após a confirmação o livro é inserido na tabela lidos
+                        myBooksDb.daoLivrosParaLer().inserir(ler);
+
+                        //recebe o mesmo livro da tabela para ler
+                        LivrosLidos lidos = myBooksDb.daoLivrosLidos().selecionarPorId(livro.getId());
+
+                        //e retira da tabela para ler
+                        myBooksDb.daoLivrosLidos().deletar(lidos);
+                    }
+                });
+
+                alert.create().show();
+            }
         }
         else{
-            Toast.makeText(ctx,"Este livro já está em 'PARA LER', não pode ser adicionado novamente",Toast.LENGTH_LONG).show();
+            Toast.makeText(ctx,"Este livro já está em 'Para ler', não pode ser adicionado novamente",Toast.LENGTH_LONG).show();
         }
     }
 }
