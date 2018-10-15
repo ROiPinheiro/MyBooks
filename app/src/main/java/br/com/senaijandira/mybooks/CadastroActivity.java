@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
@@ -86,7 +87,14 @@ public class CadastroActivity extends AppCompatActivity {
 
             String titulo = txtTitulo.getText().toString();
             String descricao = txtDescricacao.getText().toString();
-            byte[] capa = Utils.toByteArray(livroCapa);
+
+            //obj para comprimir a img
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+            //comprimir a img para reduzir o tamanho
+            livroCapa.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+
+            byte[] capa = stream.toByteArray();
 
             Livro livro = new Livro(capa, titulo, descricao);
 

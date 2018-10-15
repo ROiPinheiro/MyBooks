@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
@@ -103,7 +104,17 @@ public class EditarActivity extends AppCompatActivity {
             //seta no livro os novos valores
             livro.setTitulo(txtTitulo.getText().toString());
             livro.setDescricao(txtDescricacao.getText().toString());
-            livro.setCapa(Utils.toByteArray(livroCapa));
+
+            //obj para comprimir a img
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+            //comprimir a img para reduzir o tamanho
+            livroCapa.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+
+            byte[] capa = stream.toByteArray();
+
+
+            livro.setCapa(capa);
 
             myBooksDB.daoLivro().atualizar(livro);
 
