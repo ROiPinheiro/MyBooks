@@ -15,15 +15,14 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import br.com.senaijandira.mybooks.CadastroActivity;
 import br.com.senaijandira.mybooks.EditarActivity;
 import br.com.senaijandira.mybooks.R;
-import br.com.senaijandira.mybooks.utils.Utils;
 import br.com.senaijandira.mybooks.ViewHolder;
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 import br.com.senaijandira.mybooks.model.LivrosLidos;
 import br.com.senaijandira.mybooks.model.LivrosParaLer;
+import br.com.senaijandira.mybooks.utils.Utils;
 
 public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
 
@@ -90,10 +89,10 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
                         editarLivro(v, position);
                         break;
                     case R.id.menu_item_ler:
-                        paraLer(new LivrosParaLer(livro.getId()));
+                        paraLer(livro , new LivrosParaLer(livro.getId()));
                         break;
                     case R.id.menu_item_lidos:
-                        paraLidos(new LivrosLidos(livro.getId()));
+                        paraLidos(livro, new LivrosLidos(livro.getId()));
                         break;
                 }
                 return false;
@@ -131,7 +130,7 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
                     myBooksDb.daoLivro().deletar(livro);
 
                     //remove livro da lista
-                    livros.remove(livro);
+                    livros.remove(position);
                     notifyItemRemoved(position);
                 }
                 else{
@@ -149,12 +148,28 @@ public class LivrosAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     //Médoto para adicionar um livro na lista de livros lidos
-    private void paraLidos(LivrosLidos lidos){
-        myBooksDb.daoLivrosLidos().inserir(lidos);
+    private void paraLidos(Livro livro, LivrosLidos lidos){
+
+        //se o livro não estiver em nenhuma lista, pode ser apagado
+        if(!myBooksDb.daoLivrosLidos().selecioarUmLivro(livro.getId())){
+
+            myBooksDb.daoLivrosLidos().inserir(lidos);
+        }
+        else{
+            Toast.makeText(ctx,"Este livro já está em 'LIDOS', não pode ser adicionado novamente",Toast.LENGTH_LONG).show();
+        }
     }
 
     //Médoto para adicionar um livro na lista de livros para ler
-    private void paraLer(LivrosParaLer ler){
-        myBooksDb.daoLivrosParaLer().inserir(ler);
+    private void paraLer(Livro livro, LivrosParaLer ler){
+
+        //se o livro não estiver em nenhuma lista, pode ser apagado
+        if(!myBooksDb.daoLivrosParaLer().selecioarUmLivro(livro.getId())){
+
+            myBooksDb.daoLivrosParaLer().inserir(ler);
+        }
+        else{
+            Toast.makeText(ctx,"Este livro já está em 'PARA LER', não pode ser adicionado novamente",Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -7,10 +7,10 @@
     <item android:id="@+id/menu_item_delete"
         android:title="Apagar" />
 
-    <item android:id="@+id/menu_item_lidos"
-        android:title="Enviar para 'Lidos'" />
-
     <item android:id="@+id/menu_item_ler"
         android:title="Enviar para 'Para Ler'" />
+
+    <item android:id="@+id/menu_item_lidos"
+        android:title="Enviar para 'Lidos'" />
 
 </menu>
